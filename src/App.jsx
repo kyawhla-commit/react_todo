@@ -1,16 +1,29 @@
-function Item(props) {
+import { useState } from "react";
+
+function Item({ item }) {
   return <li>
-    {props.name} ({props.value})
-    </li>;
+    {item.name}
+  </li>;
 }
 export default function App() {
+  const [items, setItems] = useState( [
+    { name: "Apple", done: false },
+    { name: "Orange", done: false },
+    { name: "Banana", done: false },
+  ]);
+
+  const add = () => {
+    setItems([{ name: "new Item", done: false }, ...items])
+  };
+
   return (
     <>
-      <h1>Hello React</h1>
+      <h1>Hello React({items.length})</h1>
+      <button onClick={add}>Add</button>
       <ul>
-        <Item name = "Apple" value = "344" />
-        <Item name = "Orange" value = "399"/>
-        <Item name = "Banana" value = "3999" />
+        {items.map(item => {
+          return <Item item={item} />
+        })}
       </ul>
     </>
   )
